@@ -2,6 +2,8 @@
 % Extracts intensity features of all patches and stores them in a giant
 % feature array.
 
+% DO NOT NEED TO RUN AFTER FEATURE SCALING SECTION.
+
 % Same as extract_intensity_v2.m, except there are additional graphing
 % things in here.
 
@@ -10,6 +12,8 @@
 % derived from the DAPI mask and 2 intensity features derived from each of
 % the 17 channels). Columns are organized as: 
 % [mask_aspect_ratio mask_per mask_area std_ch1 mean_ch1 std_ch2 mean_ch2 ... std_ch17 mean_ch17]
+
+clear; close all;
 
 %% Load in all patches
 % Load file names into array
@@ -87,7 +91,7 @@ for j = 1:length(fnames) % Loop through patches
     % GET INTENSITY FEATURES
     for i = 2:num_ch % Loop through channels
         patch = double(imread(fname,i));
-        patch = patch/max(patch,[],'all'); % Scale 0 to 1
+        %patch = patch/max(patch,[],'all'); % Scale 0 to 1
         %figure(10), imagesc(patch);
         %ch_hist = imhist(patch); % Generate intensity histogram of channel
         features(j,ft_idx) = std(patch,[],'all'); ft_idx = ft_idx + 1;
@@ -95,6 +99,10 @@ for j = 1:length(fnames) % Loop through patches
     end
 end
 
+%% Feature Scaling -- Min-Max Scaling across all Features (Columns)
+for i = 1:num_f
+   features(:,i) = (features(:,i)-min(features(:,i)))/(max(features(:,i))-min(features(:,i)));
+end
 
 %% Preliminary Clustering
 k_clusters = kmeans(features(:,:),10,'MaxIter',1000);
@@ -107,11 +115,22 @@ figure(200), clf
 hold on
 for i=1:17
     subplot(3,6,i)
-    P = gscatter(features(:,2*(i-1)+1),features(:,2*i),k_clusters(:)); 
-    set(P,'MarkerSize',1);
+    P = gscatter(features(:,2*i+2),features(:,2*i+3),k_clusters(:)); 
+    set(P,'MarkerSize',2);
     b = gca; legend(b,'off');
 end
 hold off
+
+%%
+figure
+scatter3(features(:,1), features(:,2), features(:,1),20, k_clusters(:), 'filled'); colormap(jet(5));
+
+figure
+P = gscatter(features(:,1),features(:,3),k_clusters(:)); 
+    set(P,'MarkerSize',2);
+    b = gca; legend(b,'off');
+
+xlabel('Area'), ylabel('Perimeter');
 
 %% Save feature matrix and file names
 save('feature_mat.mat', 'features'); % Matrix of features
