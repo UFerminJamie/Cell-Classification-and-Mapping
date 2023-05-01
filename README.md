@@ -36,6 +36,8 @@ To replicate the results from the report, follow these steps:
 
 5. Next, execute the `UMAP.R` script to perform unsupervised clustering. This script uses the feature matrix generated in the previous step and produces a CSV file that contains predicted labels for each cell. The Seurat package, which is commonly used for scRNA-seq data analysis, is utilized in this file. Prior to clustering, the D most variable features were selected, followed by data normalization (log normalization), scaling, and PCA. To identify the different clusters, a graph-based approach was utilized, which constructs a k-nearest neighbor (kNN) graph based on the intensity features. In this approach, each cell is connected to its k nearest neighbors.
 
+![UMAP](Figures/TMA3_mean_sd.png "UMAP Visualization")
+
 6. To complete the pipeline, open the `Mapping.ipynb` notebook and load the CSV file containing the predicted cluster labels. Then, use the overlay function with the following arguments: `tif_path` (the path to the CODEX image), `xml_path` (the path to the corresponding XML file), `num_cluster` (the number of clusters), and `dataframe` (the cluster ID column in the CSV file). The `overlay` function generates an RGB overlay image on top of a CODEX image where each cluster is assigned a different color for visualization purposes.
 
 ## Authors
