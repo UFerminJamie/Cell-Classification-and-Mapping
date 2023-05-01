@@ -40,6 +40,8 @@ To replicate the results from the report, follow these steps:
 
 6. To complete the pipeline, open the `Mapping.ipynb` notebook and load the CSV file containing the predicted cluster labels. Then, use the overlay function with the following arguments: `tif_path` (the path to the CODEX image), `xml_path` (the path to the corresponding XML file), `num_cluster` (the number of clusters), and `dataframe` (the cluster ID column in the CSV file). The `overlay` function generates an RGB overlay image on top of a CODEX image where each cluster is assigned a different color for visualization purposes.
 
+![Mapping](Figures/Mapping_vis.png "Mapping Visualization")
+
 ## Authors
 Jamie L. Fermin - j.fermin@ufl.edu
 
