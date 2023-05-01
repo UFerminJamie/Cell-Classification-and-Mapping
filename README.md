@@ -1,7 +1,5 @@
 # Cell-Classification-and-Mapping
 
-# Final Project
-
 This is a **group assignment**.
 
 ## Code Implementation & Technical Report
@@ -18,13 +16,16 @@ EEL5934 (Spring 2023) Final Project
 
 Title: Single Cell Classification and Mapping
 
-Project Description: 
+Project Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 ## Usage 
 
 To replicate the results from the report, follow these steps:
 
 1.  Clone the repository and navigate to the project directory.
+	
+	`git clone https://github.com/UFerminJamie/Cell-Classification-and-Mapping.git`
+	 
 2.  Ensure that all the necessary dependencies are installed.
 
 3. Within `data_extraction_visualization.ipynb`, run the `mask_to_xml` function to generate an XML file containing all the annotated cell regions. This XML file can be used to visualize the quality of the nuclei segmentation mask by reading the H&E image and its corresponding XML file in ImageScope Aperio. The `mask_to_xml` function uses the following arguments : `xml_path`(directory where to save the XML file), and the `mask`(nuclei mask image).
